@@ -4,6 +4,10 @@ init() {
     echo "initialising..."
 }
 
+info() {
+    echo "info"
+}
+
 help() {
     echo "plug help"
     echo "read the manual first"
@@ -16,6 +20,13 @@ while (( $# > 0 )); do
         -f|--flag)
         echo flag: "${1}"
         shift # shift once since flags have no values
+        ;;
+
+        init) init
+        ;;
+        info) info
+        ;;
+        config) config
         ;;
 
         -h|--help)
