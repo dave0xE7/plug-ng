@@ -1,0 +1,8 @@
+Package: plug
+Version: 1.0
+Section: custom
+Priority: optional
+Architecture: all
+Essential: no
+Maintainer: invidec.net
+Description: Print on the screen

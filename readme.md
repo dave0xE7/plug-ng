@@ -19,7 +19,9 @@
     # local settings db
     # local cache db
 
-
+# system daemons/services
+    - shellscript version
+    - nodejs version
 
 # $ plug <cmd>
 
