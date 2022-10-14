@@ -22,11 +22,11 @@ while (( $# > 0 )); do
         shift # shift once since flags have no values
         ;;
 
-        init) init
+        init) init; shift;
         ;;
-        info) info
+        info) info; shift
         ;;
-        config) config
+        config) config; shift
         ;;
 
         -h|--help)

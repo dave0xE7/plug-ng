@@ -23,6 +23,9 @@
     - shellscript version
     - nodejs version
 
+# web-interface/-dashboard
+    
+
 # $ plug <cmd>
 
 	plug init			# initializes local settings from defaults and generates new host id and keys

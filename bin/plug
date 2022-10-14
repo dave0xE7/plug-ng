@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+
+if [ ! -L "$0" ]; then
+    PLUG_PATH="$(realpath "$(dirname "$0")/..")"
+else
+    if command -v readlink >/dev/null; then
+        PLUG_PATH="$(realpath "$(dirname "$(readlink -f "$0")")/..")"
+    else
+        PLUG_PATH="/opt/plug"
+    fi
+fi
+
+echo "$PLUG_PATH"
+
+source $PLUG_PATH/src/main.sh
