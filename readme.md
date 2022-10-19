@@ -12,10 +12,15 @@
     - host uptime tracker
     - system load and usage monitor
     - hardware detection
-    - offline detection
+        - system, cpu, motherboard,... names, types, serial
+    - report system information
+        - mountpoints
+        - processes
     - internet connection details
-    - lan connection
-    - wifi connectons
+        - isOn/offline tracker
+        - lan connection
+        - wifi connectons
+        - public internet connection (ipv4 &6 addresses) 
     # local settings db
     # local cache db
 
@@ -42,3 +47,13 @@
 # installer
     if (user==root)
         destination=
+
+
+    - install dest <>
+    - install symbols
+
+
+# installation
+    git clone https://github.com/dave0xE7/plug-ng
+    cd plug-ng
+    bash bin/plug install

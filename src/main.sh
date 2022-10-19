@@ -38,9 +38,15 @@ init() {
 
 info() {
     echo "info"
-    echo "pwd="$(pwd)""
-    [ ! -d $PLUG_DATA ] && echo "has not been initialized yet"
+    echo "CWD="$(pwd)""
+    echo "PLUG_PATH=$PLUG_PATH"
 
+    if [ -d $PLUG_DATA ]; then
+        source $PLUG_DATA/config
+        echo "PLUG_UUID=$PLUG_UUID"
+    else
+        echo "has not been initialized yet"
+    fi
 
 }
 
@@ -49,6 +55,11 @@ help() {
     echo "read the manual first"
 }
 
+
+if [ $# == 0 ]; then
+    echo "done"
+    info
+fi
 
 POSITIONAL=()
 while (( $# > 0 )); do
@@ -60,12 +71,14 @@ while (( $# > 0 )); do
 
         init) init; shift;;
         info) info; shift;;
+        install)
+            source $PLUG_PATH/src/install.sh; 
+            shift
+            ;;
         config) config; shift;;
         
-        help| -h|--help)
-        help; shift;
-        shift # shift once since flags have no values
-        ;;
+        help| -h|--help) help; shift;;
+
         -s|--switch)
         numOfArgs=1 # number of switch arguments
         if (( $# < numOfArgs + 1 )); then
@@ -76,6 +89,7 @@ while (( $# > 0 )); do
         fi
         ;;
         *) # unknown flag/switch
+        echo "unknown"
         POSITIONAL+=("${1}")
         shift
         ;;
