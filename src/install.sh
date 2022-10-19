@@ -50,7 +50,7 @@ if (($(id -u) != 0)); then
         
     else
         echo "you ned to have root privileged"
-        break
+        # break
     fi
 fi
 
