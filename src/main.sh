@@ -6,6 +6,9 @@ if ! [[ -v PLUG_PATH ]]; then
     exit;
 fi
 
+# loading common function library
+source $PLUG_PATH/src/common.sh
+
 PLUG_DATA=$PLUG_PATH/data
 if ! [ -d $PLUG_PATH ]; then
     echo "error"
@@ -17,22 +20,13 @@ if ! [ -d $PLUG_PATH ]; then
     # echo "$PLUG_CONFIG"
 fi
 
-generate_keys() {
-    ssh-keygen -f $PLUG_DATA/id_rsa -t rsa -N '' -C 'plug' -b 4096 -y &> /dev/null
-}
-fingerprint_key() {
-    ssh-keygen -f data/id_rsa.pub -l -E sha256 | awk '{print $2}' | awk -F: '{print $2}'
-}
-
-generate_uuid() {
-    echo $(date +%s | sha1sum - | awk '{print $1}')
-}
-
 init() { 
     echo "initialising..."
     mkdir -vp $PLUG_DATA
+    mkdir -vp $PLUG_DATA/unique
     PLUG_UUID="$(generate_uuid)"
-    echo "PLUG_UUID=$PLUG_UUID" > $PLUG_DATA/config
+    echo "PLUG_UUID=$PLUG_UUID" > $PLUG_DATA/unique/config
+    echo "$PLUG_UUID" > $PLUG_DATA/unique/uuid
 
 }
 
@@ -41,8 +35,8 @@ info() {
     echo "CWD="$(pwd)""
     echo "PLUG_PATH=$PLUG_PATH"
 
-    if [ -d $PLUG_DATA ]; then
-        source $PLUG_DATA/config
+    if [ -d $PLUG_DATA/unique ]; then
+        source $PLUG_DATA/unique/config
         echo "PLUG_UUID=$PLUG_UUID"
     else
         echo "has not been initialized yet"
@@ -53,6 +47,11 @@ info() {
 help() {
     echo "plug help"
     echo "read the manual first"
+}
+
+service() {
+    export $PLUG_PATH
+    node $PLUG_PATH/src/app/main.js
 }
 
 
@@ -76,6 +75,7 @@ while (( $# > 0 )); do
             shift
             ;;
         config) config; shift;;
+        service) service; shift;;
         
         help| -h|--help) help; shift;;
 
