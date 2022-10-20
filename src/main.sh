@@ -76,6 +76,7 @@ while (( $# > 0 )); do
             ;;
         config) config; shift;;
         service) service; shift;;
+        tor) source $PLUG_PATH/src/modules/tor/run_tor.sh; shift;;
         
         help| -h|--help) help; shift;;
 
